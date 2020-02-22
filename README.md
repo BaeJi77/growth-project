@@ -1,2 +1,2 @@
 # growth-project
-more implement about blog featrue
+more implement about blog feature
