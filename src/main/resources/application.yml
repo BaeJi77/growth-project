@@ -12,3 +12,10 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa  # 사용자 이름 (로그인 시 사용)
     password:   # 사용자 암호 (로그인 시 사용)
+
+  devtools:
+    livereload:
+      enabled: true
+
+  thymeleaf:
+    cache: false
