@@ -3,8 +3,12 @@ package com.boot.spring.with.blog_man_big_to_growth.contorller;
 import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleRequestDto;
 import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleResponseDto;
 import com.boot.spring.with.blog_man_big_to_growth.service.ArticleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @RestController
 public class ArticleController {
     private final String PATH = "/articles";
@@ -26,7 +30,8 @@ public class ArticleController {
     }
 
     @PostMapping(PATH)
-    public String createArticle(@RequestBody ArticleRequestDto articleRequestDto) {
+    public String createArticle(@RequestBody @Valid ArticleRequestDto articleRequestDto) {
+        log.info("{}", articleRequestDto);
         articleService.createNewArticle(articleRequestDto);
         return "redirect:/";
     }
