@@ -1,33 +1,31 @@
 package com.boot.spring.with.blog_man_big_to_growth.contorller;
 
 import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleRequestDto;
+import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleResponseDto;
 import com.boot.spring.with.blog_man_big_to_growth.service.ArticleService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/articles")
+@RestController
 public class ArticleController {
+    private final String PATH = "/articles";
     private final ArticleService articleService;
 
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
-    @GetMapping("/edit")
+    @GetMapping(PATH + "/edit")
     public String findArticleAddingPage() {
         return "/article-edit";
     }
 
-    @GetMapping("/{id}")
-    public String findCertainArticle() {
+    @GetMapping(PATH + "/{id}")
+    public String findCertainArticle(@PathVariable Long id) {
+        ArticleResponseDto articleResponseDto = articleService.findOneArticleById(id);
         return "/article";
     }
 
-    @PostMapping
+    @PostMapping(PATH)
     public String createArticle(@RequestBody ArticleRequestDto articleRequestDto) {
         articleService.createNewArticle(articleRequestDto);
         return "redirect:/";
