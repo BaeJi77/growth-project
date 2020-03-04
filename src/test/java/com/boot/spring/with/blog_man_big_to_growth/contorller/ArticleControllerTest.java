@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -17,7 +18,7 @@ public class ArticleControllerTest {
     private MockMvc mockMvc;
 
     private final String URL_PATH = "/articles";
-    private final String JSON_CONTENT_TYPE = "application/json";
+    private final MediaType JSON_CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     @Test
     public void isFailCreateArticleWithEmptyJson() throws Exception {
@@ -46,7 +47,7 @@ public class ArticleControllerTest {
     public void isSuccessCreateArticleWithoutBackgroundUrl() throws Exception {
         String jsonWithoutBackgroundUrl = "{\"title\": \"hi\", \"contents\": \"hi\"}";
         mockMvc.perform(post(URL_PATH).contentType(JSON_CONTENT_TYPE).content(jsonWithoutBackgroundUrl))
-                .andExpect(status().isOk())
+                .andExpect(status().is(302))
                 .andDo(print());
     }
 
@@ -54,7 +55,7 @@ public class ArticleControllerTest {
     public void isSuccessCreateArticleWithCorrectJson() throws Exception {
         String jsonWithAllData = "{\"title\": \"hi\", \"contents\": \"hi\", \"backgrroundUrl\": \"hi\"}";
         mockMvc.perform(post(URL_PATH).contentType(JSON_CONTENT_TYPE).content(jsonWithAllData))
-                .andExpect(status().isOk())
+                .andExpect(status().is(302))
                 .andDo(print());
     }
 }
