@@ -1,10 +1,15 @@
 package com.boot.spring.with.blog_man_big_to_growth.model;
 
+import lombok.Builder;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Builder
+@ToString
 @Entity
 public class Article {
     @Id
@@ -21,6 +26,13 @@ public class Article {
     }
 
     public Article(String title, String backgroundUrl, String contents) {
+        this.title = title;
+        this.backgroundUrl = backgroundUrl;
+        this.contents = contents;
+    }
+
+    public Article(Long id, String title, String backgroundUrl, String contents) {
+        this.id = id;
         this.title = title;
         this.backgroundUrl = backgroundUrl;
         this.contents = contents;
