@@ -2,7 +2,6 @@ package com.boot.spring.with.blog_man_big_to_growth.contorller;
 
 import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleRequestDto;
 import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleResponseDto;
-import com.boot.spring.with.blog_man_big_to_growth.dto.ArticleUpdateDto;
 import com.boot.spring.with.blog_man_big_to_growth.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ public class ArticleController {
     @GetMapping(ARTICLES + "/{id}")
     public String findCertainArticle(@PathVariable Long id) {
         ArticleResponseDto articleResponseDto = articleService.findOneArticleById(id);
+        log.info("{}", articleResponseDto);
         return "/article";
     }
 
@@ -31,19 +31,19 @@ public class ArticleController {
         return "/article-edit";
     }
 
-
-
     @PostMapping(ARTICLES)
     public String createArticle(@RequestBody @Valid ArticleRequestDto articleRequestDto) {
         log.info("{}", articleRequestDto);
-        articleService.createNewArticle(articleRequestDto);
+        ArticleResponseDto newArticle = articleService.createNewArticle(articleRequestDto);
+        log.info("{}", newArticle);
         return "redirect:/";
     }
 
-    @PutMapping(ARTICLES)
-    public String updateArticle(@RequestBody @Valid ArticleUpdateDto articleUpdateDto) {
-        log.info("input data: {}", articleUpdateDto);
-        articleService.updateArticle(articleUpdateDto);
+    @PutMapping(ARTICLES + "/{id}")
+    public String updateArticle(@PathVariable Long id, @RequestBody @Valid ArticleRequestDto articleRequestDto) {
+        log.info("input data: {}", articleRequestDto);
+        articleService.updateArticle(id, articleRequestDto);
+
         return "redirect:/";
     }
 
