@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Builder
 @ToString
 @Entity
 public class Article {
@@ -25,14 +24,15 @@ public class Article {
     public Article() {
     }
 
+    @Builder
     public Article(String title, String backgroundUrl, String contents) {
         this.title = title;
         this.backgroundUrl = backgroundUrl;
         this.contents = contents;
     }
 
-    public Article(Long id, String title, String backgroundUrl, String contents) {
-        this.id = id;
+    // 여기서 굳이 request dto를 넣어서 작업을 하지 않는 것은 request에서 내려온 데이터를 domain 레벨까지 사용하는 것은 좋지 않기 때문
+    public void update (String title, String backgroundUrl, String contents) {
         this.title = title;
         this.backgroundUrl = backgroundUrl;
         this.contents = contents;
