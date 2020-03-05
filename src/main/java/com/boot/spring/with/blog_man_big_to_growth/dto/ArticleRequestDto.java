@@ -1,5 +1,6 @@
 package com.boot.spring.with.blog_man_big_to_growth.dto;
 
+import com.boot.spring.with.blog_man_big_to_growth.model.Article;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
@@ -22,6 +23,15 @@ public class ArticleRequestDto {
         this.backgroundUrl = backgroundUrl;
         this.contents = contents;
     }
+
+    public Article makeArticle () {
+        return Article.builder()
+                .title(this.title)
+                .contents(this.contents)
+                .backgroundUrl(this.backgroundUrl)
+                .build();
+    }
+
 
     public String getTitle() {
         return title;

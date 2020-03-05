@@ -1,5 +1,6 @@
 package com.boot.spring.with.blog_man_big_to_growth.dto;
 
+import lombok.Builder;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ public class ArticleResponseDto {
     public ArticleResponseDto() {
     }
 
+    @Builder
     public ArticleResponseDto(Long id, String title, String backgroundUrl, String contests) {
         this.id = id;
         this.title = title;
